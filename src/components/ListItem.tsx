@@ -1,18 +1,27 @@
-import {StyleSheet, Text, View} from 'react-native';
-import React from 'react';
+import {StyleSheet, Text, TouchableOpacity, View} from 'react-native';
+import React, {useCallback} from 'react';
+import {DocItemType} from '../types';
+import {useAppNavigation} from '../hooks';
 
 type ListItemProps = {
-  name: string;
-  id: string | number;
-};
+  onClick?: () => void;
+} & DocItemType;
 
 export default function ListItem(props: ListItemProps) {
-  const {name, id} = props;
+  const {name, docId} = props;
+  const navigation = useAppNavigation();
+
+  const handleClick = useCallback(() => {
+    navigation.navigate({name: 'Doc', params: {docId, name}});
+  }, [docId, name, navigation]);
+
   return (
-    <View style={styles.itemContainer}>
-      <Text style={styles.name}>{name}</Text>
-      <Text>文件夹id: {id}</Text>
-    </View>
+    <TouchableOpacity onPress={handleClick}>
+      <View style={styles.itemContainer}>
+        <Text style={styles.name}>{name}</Text>
+        <Text>文档id: {docId}</Text>
+      </View>
+    </TouchableOpacity>
   );
 }
 

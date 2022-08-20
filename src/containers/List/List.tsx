@@ -1,10 +1,11 @@
 import {StyleSheet, View} from 'react-native';
 import React from 'react';
-import ListItem from '../components/ListItem';
+import ListItem from '../../components/ListItem';
+import {DocItemType} from '../../types';
 
-const List = [
-  {name: 'jghcen', id: 1},
-  {name: 'yin', id: 2},
+const List: DocItemType[] = [
+  {name: 'jghcen', docId: 1},
+  {name: 'yin', docId: 2},
 ];
 
 export default function ListSection() {
@@ -12,7 +13,7 @@ export default function ListSection() {
     <View style={styles.container}>
       {/* <Text style={styles.title}>DocListScreen</Text> */}
       {List.map(item => (
-        <ListItem {...item} key={item.id} />
+        <ListItem {...item} key={item.docId} />
       ))}
     </View>
   );
